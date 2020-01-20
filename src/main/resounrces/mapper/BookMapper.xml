@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fh.dao.TempDao" >
+        <select id="queryTempByName" resultType="com.fh.bean.T_emp">
+            select * from t_emp t left join t_dept d on t.leaderid=d.id where t.name=#{name} and t.leaderid=#{dape}
+        </select>
+    <select id="queryTempJob" resultType="java.util.HashMap">
+        select * from  t_job
+    </select>
+    <select id="queryTempDept" resultType="java.util.HashMap">
+        select * from  t_dept t left join t_ling l on t.id=l.deptid
+    </select>
+    <select id="queryCount" resultType="long">
+        select count(t.id) from t_emp t LEFT JOIN t_dept d ON t.deptid=d.id LEFT JOIN t_ling l on t.leaderid=l.id left join t_job j on t.jobid=j.id
+    </select>
+    <!--分页查询-->
+    <select id="queryBookList" resultType="com.fh.bean.vo.T_empvo">
+        select * from t_emp t LEFT JOIN t_dept d ON t.deptid=d.id LEFT JOIN t_ling l on t.leaderid=l.id left join t_job j on t.jobid=j.id
+        limit #{page.start},#{page.length}
+    </select>
+</mapper>
